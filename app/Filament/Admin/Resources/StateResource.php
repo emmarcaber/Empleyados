@@ -55,9 +55,9 @@ class StateResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('State')
                     ->sortable()
-                    ->searchable()
-                    ->hidden(auth()->user()->email !== 'admin@admin.com') // hide column based on condition
-                    ->visible(auth()->user()->email === 'admin@admin.com'), // opposite of hidden function
+                    ->searchable(),
+                // ->hidden(auth()->user()->email !== 'admin@admin.com') // hide column based on condition
+                // ->visible(auth()->user()->email === 'admin@admin.com'), // opposite of hidden function
                 // ->searchable(isIndividual: true, isGlobal: false), // searchable by itself only
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -73,6 +73,7 @@ class StateResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
