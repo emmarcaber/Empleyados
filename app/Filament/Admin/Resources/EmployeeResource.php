@@ -2,16 +2,21 @@
 
 namespace App\Filament\Admin\Resources;
 
-use App\Filament\Admin\Resources\EmployeeResource\Pages;
-use App\Filament\Admin\Resources\EmployeeResource\RelationManagers;
-use App\Models\Employee;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\City;
 use Filament\Tables;
+use App\Models\State;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use App\Models\Employee;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Admin\Resources\EmployeeResource\Pages;
+use App\Filament\Admin\Resources\EmployeeResource\RelationManagers;
 
 class EmployeeResource extends Resource
 {
@@ -25,29 +30,37 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('')->schema([
+                Forms\Components\Section::make('Relationships')->schema([
                     Forms\Components\Select::make('country_id')
-                        ->required()
                         ->relationship(name: 'country', titleAttribute: 'name')
-                        // ->preload()
                         ->searchable()
+                        ->preload()
+                        ->afterStateUpdated(function (Set $set) {
+                            $set('state_id', null);
+                            $set('city_id', null);
+                        }) // remove value of state_id, if country_id is empty
+                        ->live() // for dependent dropdowns
                         ->required(),
                     Forms\Components\Select::make('state_id')
-                        ->required()
-                        ->relationship(name: 'state', titleAttribute: 'name')
-                        // ->preload()
+                        ->options(fn (Get $get): Collection => State::query()
+                            ->where('country_id', $get('country_id'))
+                            ->pluck('name', 'id')) // show the states based on selected country
+                        ->preload()
+                        ->live() // update other dropdowns live based on its value
+                        ->afterStateUpdated(fn (Set $set) => $set('city_id', null)) // remove value of city_id, if state_id is empty
                         ->searchable()
                         ->required(),
                     Forms\Components\Select::make('city_id')
-                        ->required()
-                        ->relationship(name: 'city', titleAttribute: 'name')
-                        // ->preload()
+                        ->options(fn (Get $get): Collection => City::query()
+                            ->where('state_id', $get('state_id'))
+                            ->pluck('name', 'id')) // show the cities based on selected state
+                        ->preload()
+                        ->live()
                         ->searchable()
                         ->required(),
                     Forms\Components\Select::make('department_id')
-                        ->required()
                         ->relationship(name: 'department', titleAttribute: 'name')
-                        // ->preload()
+                        ->preload()
                         ->searchable()
                         ->required(),
                 ])->columns(2),
