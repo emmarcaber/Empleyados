@@ -25,6 +25,32 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Section::make('')->schema([
+                    Forms\Components\Select::make('country_id')
+                        ->required()
+                        ->relationship(name: 'country', titleAttribute: 'name')
+                        // ->preload()
+                        ->searchable()
+                        ->required(),
+                    Forms\Components\Select::make('state_id')
+                        ->required()
+                        ->relationship(name: 'state', titleAttribute: 'name')
+                        // ->preload()
+                        ->searchable()
+                        ->required(),
+                    Forms\Components\Select::make('city_id')
+                        ->required()
+                        ->relationship(name: 'city', titleAttribute: 'name')
+                        // ->preload()
+                        ->searchable()
+                        ->required(),
+                    Forms\Components\Select::make('department_id')
+                        ->required()
+                        ->relationship(name: 'department', titleAttribute: 'name')
+                        // ->preload()
+                        ->searchable()
+                        ->required(),
+                ])->columns(2),
                 Forms\Components\Section::make('User Name')->description('Put the user name details here.')
                     ->schema([
                         Forms\Components\TextInput::make('first_name')

@@ -21,7 +21,7 @@ class CountryResource extends Resource
 
     protected static ?string $navigationLabel = 'Country'; // Nav Title or Label
 
-    protected static ?string $modelLabel = 'Employees Countries'; // Page Title
+    protected static ?string $modelLabel = 'Employees Country'; // Page Title
 
     protected static ?string $navigationGroup = 'System Management'; // Nav Groups
 
@@ -37,6 +37,13 @@ class CountryResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('code')
+                    ->required()
+                    ->maxLength(3),
+                Forms\Components\TextInput::make('phonecode')
+                    ->required()
+                    ->numeric()
+                    ->maxLength(5),
             ]);
     }
 
