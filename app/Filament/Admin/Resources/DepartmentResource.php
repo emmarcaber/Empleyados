@@ -17,7 +17,7 @@ class DepartmentResource extends Resource
 {
     protected static ?string $model = Department::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-flag'; // Nav Icon
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap'; // Nav Icon
 
     protected static ?string $navigationLabel = 'Department'; // Nav Title or Label
 

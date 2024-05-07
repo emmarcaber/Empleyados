@@ -17,7 +17,7 @@ class CityResource extends Resource
 {
     protected static ?string $model = City::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-flag'; // Nav Icon
+    protected static ?string $navigationIcon = 'heroicon-o-building-office-2'; // Nav Icon
 
     protected static ?string $navigationLabel = 'City'; // Nav Title or Label
 
