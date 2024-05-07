@@ -20,6 +20,9 @@ return new class extends Migration
         Schema::table('cities', function (Blueprint $table) {
             $table->dropTimestamps();
         });
+        Schema::table('departments', function (Blueprint $table) {
+            $table->dropTimestamps();
+        });
     }
 
     /**
