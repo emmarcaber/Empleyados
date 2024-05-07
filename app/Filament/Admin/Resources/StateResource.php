@@ -49,20 +49,26 @@ class StateResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('country_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('country.name') // Show the country name through dot notation
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->label('State')
+                    ->sortable()
+                    ->searchable()
+                    ->hidden(auth()->user()->email !== 'admin@admin.com') // hide column based on condition
+                    ->visible(auth()->user()->email === 'admin@admin.com'), // opposite of hidden function
+                // ->searchable(isIndividual: true, isGlobal: false), // searchable by itself only
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true), // hide some column by default
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('country.name') // sort states ascending by country name
             ->filters([
                 //
             ])
