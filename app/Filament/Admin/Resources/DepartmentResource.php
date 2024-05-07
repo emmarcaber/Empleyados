@@ -31,10 +31,13 @@ class DepartmentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-            ])->columns(1);
+                Forms\Components\Section::make('Department Details')
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                    ])->columns(1)
+            ]);
     }
 
     public static function table(Table $table): Table
