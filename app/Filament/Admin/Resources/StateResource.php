@@ -17,7 +17,16 @@ class StateResource extends Resource
 {
     protected static ?string $model = State::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-flag'; // Nav Icon
+
+    protected static ?string $navigationLabel = 'State'; // Nav Title or Label
+
+    protected static ?string $modelLabel = 'States'; // Page Title
+
+    protected static ?string $navigationGroup = 'System Management'; // Nav Groups
+
+    protected static ?int $navigationSort = 2; // Nav Group Order or Placement
+
 
     public static function form(Form $form): Form
     {

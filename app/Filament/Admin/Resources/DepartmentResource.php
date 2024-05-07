@@ -17,7 +17,15 @@ class DepartmentResource extends Resource
 {
     protected static ?string $model = Department::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-flag'; // Nav Icon
+
+    protected static ?string $navigationLabel = 'Department'; // Nav Title or Label
+
+    protected static ?string $modelLabel = 'Departments'; // Page Title
+
+    protected static ?string $navigationGroup = 'System Management'; // Nav Groups
+
+    protected static ?int $navigationSort = 4; // Nav Group Order or Placement
 
     public static function form(Form $form): Form
     {
