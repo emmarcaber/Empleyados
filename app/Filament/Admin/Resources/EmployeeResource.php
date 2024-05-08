@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Admin\Resources\EmployeeResource\Pages;
 use App\Filament\Admin\Resources\EmployeeResource\RelationManagers;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Tables\Filters\SelectFilter;
 
 class EmployeeResource extends Resource
 {
@@ -45,6 +46,7 @@ class EmployeeResource extends Resource
                         ->live() // for dependent dropdowns
                         ->required(),
                     Forms\Components\Select::make('state_id')
+                        ->label('State')
                         ->options(fn (Get $get): Collection => State::query()
                             ->where('country_id', $get('country_id'))
                             ->pluck('name', 'id')) // show the states based on selected country
@@ -54,6 +56,7 @@ class EmployeeResource extends Resource
                         ->searchable()
                         ->required(),
                     Forms\Components\Select::make('city_id')
+                        ->label('City')
                         ->options(fn (Get $get): Collection => City::query()
                             ->where('state_id', $get('state_id'))
                             ->pluck('name', 'id')) // show the cities based on selected state
@@ -146,7 +149,8 @@ class EmployeeResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('Department')
+                    ->relationship('department', 'name'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
