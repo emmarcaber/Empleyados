@@ -150,7 +150,10 @@ class EmployeeResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('Department')
-                    ->relationship('department', 'name'),
+                    ->label('Filter by Department')
+                    ->relationship('department', 'name')
+                    ->searchable()
+                    ->preload(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
