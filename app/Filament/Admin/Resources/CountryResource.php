@@ -99,6 +99,9 @@ class CountryResource extends Resource
 
     public static function getRelations(): array
     {
+        // Register here the created relation managers
+        // Relation Managers have parent and children
+        // Basically, managing the children from the parent side
         return [
             StatesRelationManager::class,
             EmployeesRelationManager::class,
