@@ -16,15 +16,17 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::create([
+            'name' => 'Administrator',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('pass1234'),
+        ]);
 
         $this->call([
             CountrySeeder::class,
             StateSeeder::class,
             CitySeeder::class,
+            // DepartmentSeeder::class,
         ]);
     }
 }
