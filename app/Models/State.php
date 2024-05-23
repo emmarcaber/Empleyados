@@ -16,6 +16,8 @@ class State extends Model
         'name'
     ];
 
+    public $timestamps = false;
+
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);

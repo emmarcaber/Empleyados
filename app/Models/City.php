@@ -16,6 +16,8 @@ class City extends Model
         'name'
     ];
 
+    public $timestamps = false;
+
     public function state(): BelongsTo
     {
         return $this->belongsTo(State::class);

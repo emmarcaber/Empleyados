@@ -14,6 +14,8 @@ use Filament\Infolists\Components\TextEntry;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Admin\Resources\StateResource\Pages;
 use App\Filament\Admin\Resources\StateResource\RelationManagers;
+use App\Filament\Admin\Resources\StateResource\RelationManagers\CitiesRelationManager;
+use App\Filament\Admin\Resources\StateResource\RelationManagers\EmployeesRelationManager;
 use Filament\Infolists\Components\Section;
 
 class StateResource extends Resource
@@ -102,7 +104,8 @@ class StateResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            CitiesRelationManager::class,
+            EmployeesRelationManager::class,
         ];
     }
 

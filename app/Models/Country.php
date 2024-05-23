@@ -10,6 +10,15 @@ class Country extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'code',
+        'phonecode',
+    ];
+
+    // Create filament relation manager
+    // php artisan make:filament-relation-manager [ResourceNameModelOwnerClass - CountryResource] [RelationshipName - states] [AttributeNameToIdentifyRelationship - name]
+
     public function states(): HasMany
     {
         return $this->hasMany(State::class);
